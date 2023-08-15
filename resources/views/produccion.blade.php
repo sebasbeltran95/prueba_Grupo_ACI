@@ -20,7 +20,7 @@
                                     <tr>
                                         <th><button type="button" class="btn w-100 btn-info btn-sm" data-toggle="modal" data-target="#modalCrearCliente"><i class="fas fa-plus"></i></button></th>
                                         <th colspan="11">
-                                            <form method="POST" action="{{route('propiedadesfiltroname')}}">
+                                            <form method="POST" action="{{route('produccionfiltroname')}}">
                                                 @csrf
                                                 <div class="input-group input-group-sm">
                                                     <input type="text" class="form-control" placeholder="Ingrese nombre de la propiedad" name="name" autocomplete="off" id="nameFiltro">
@@ -36,34 +36,30 @@
                                     </tr>
                                     <tr>
                                         <th class="text-center">ID</th>
-                                        <th class="text-center">Nombre</th>
-                                        <th class="text-center">Direccion</th>
-                                        <th class="text-center">Precio</th>
-                                        <th class="text-center">Codigo Inrternacional</th>
-                                        <th class="text-center">año</th>
-                                        <th class="text-center">Dueño</th>
-                                        <th class="text-center">Foto</th>
-                                        <th class="text-center">Fecha Creacion</th>
-                                        <th class="text-center">Fecha Actualizacion</th>
+                                        <th class="text-center">REF</th>
+                                        <th class="text-center">Operario</th>
+                                        <th class="text-center">Piezas Buenas</th>
+                                        <th class="text-center">Piezas Malas</th>
+                                        <th class="text-center">Fecha Inicio</th>
+                                        <th class="text-center">Fecha Fin</th>
+                                        <th class="text-center">Gastos Adicionales</th>
+                                        <th class="text-center">Observaciones</th>
                                         <th class="text-center">Acciones</th>
 
                                     </tr>
                                 </thead>
                                 <tbody>
-                        @forelse($propiedades as $usu)
+                        @forelse($usuarios as $usu)
                                     <tr>
-                                        <td class="text-center">{{$usu->idProperty}}</td>
-                                        <td class="text-center">{{$usu->name}}</td>
-                                        <td class="text-center">{{$usu->addres}}</td>
-                                        <td class="text-center">$ {{number_format($usu->price)}}</td>
-                                        <td class="text-center">{{$usu->codeinternacional}}</td>
-                                        <td class="text-center">{{$usu->year}}</td>
-                                        @if ($usu->DUEÑOS != null)
-                                        <td class="text-center">{{$usu->DUEÑOS->name}}</td>
-                                        @else
-                                        <td></td>
-                                        @endif
-                                        <td> <img class="fluid" src="{{asset($usu->foto)}}" alt="{{ $usu->name}}" width="290px"> </td>
+                                        <td class="text-center">{{$usu->id}}</td>
+                                        <td class="text-center">{{$usu->ref}}</td>
+                                        <td class="text-center">{{$usu->operario}}</td>
+                                        <td class="text-center">$ {{$usu->piezas_buenas}}</td>
+                                        <td class="text-center">{{$usu->piezas_malas}}</td>
+                                        <td class="text-center">{{$usu->fecha_inicio}}</td>
+                                        <td class="text-center">{{$usu->fecha_fin}}</td>
+                                        <td class="text-center">{{number_format($usu->gastos_adicionales)}}</td>
+                                        <td class="text-center">{{$usu->observaciones}}</td>
                                         <td class="text-center">{{$usu->created_at}}</td>
                                         <td class="text-center">{{$usu->updated_at}}</td>
                                         <td class="d-flex justify-content-center">
@@ -86,10 +82,10 @@
                                                         {{--  <!-- Modal content-->  --}}
                                                         <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h4 class="modal-title">Editar Propiedad</h4>
+                                                            <h4 class="modal-title">Editar Produccion</h4>
                                                         </div>
                                                         <div class="modal-body">
-                                                                <form class="col-12" method="POST" action="{{route('propiedadesactualizar')}}" enctype="multipart/form-data">
+                                                                <form class="col-12" method="POST" action="{{route('produccionactualizar')}}">
                                                                     @csrf
                                                                     <div class="form-group">
                                                                         <input value="{{$usu->idProperty}}" type="hidden" class="form-control" name="idProperty">
@@ -114,25 +110,9 @@
                                                                         <label for="exampleInputEmail1">Año</label>
                                                                         <input type="date" class="form-control" name="year"  value="{{$usu->year}}" aria-describedby="emailHelp"  required>
                                                                     </div>
-                                                                    <div class="form-group">
-                                                                        <label for="idOwner">Area</label>
-                                                                        <select class="custom-select" name="idOwner" id="idOwner">
-                                                                            <option value="" selected disabled>Seleccione una opción...</option>
-                                                                            @php
-                                                                            $dduuee = App\Models\Dueños::all();
-                                                                            @endphp   
-                                                                            @foreach($dduuee as $ddd)
-                                                                            <option value="{{ $ddd->idOwner }}"  @if($ddd->idOwner == $usu->idOwner ) selected @endif>{{ $ddd->name }}</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="exampleInputPassword1">Foto</label>
-                                                                        <input type="file" class="form-control" name="foto" id="exampleInputPassword1"><br> <img value="{{$usu->foto}}" class="fluid" src="{{asset($usu->foto)}}" alt="{{ $usu->name}}" width="290px"> 
-                                                                    </div>
                                                         </div>
                                                         <div class="modal-footer">
-                                                            <button type="submit" class="btn btn-primary">Editar Propiedad</button>
+                                                            <button type="submit" class="btn btn-primary">Editar Produccion</button>
                                                             </form>
                                                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                                                         </div>
@@ -153,8 +133,8 @@
                                 <tfoot>
                                     <tr>
                                         <td colspan="11">
-                                            @if($propiedades != null)
-                                                {{$propiedades->links()}}
+                                            @if($usuarios != null)
+                                                {{$usuarios->links()}}
                                                 {{--  {{$clientes->appends(['busqueda'=>$busqueda])}}  --}}
                                             @endif
                                         </td>
@@ -168,62 +148,58 @@
     </div>
    {{--  tabla   --}}
 
-               {{--  <!-- Modal -->  --}}
-            <div class="modal fade" id="modalCrearCliente" role="dialog">
-                <div class="modal-dialog">
-                        {{--  <!-- Modal content-->  --}}
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Crear Propiedad</h4>
-                            </div>
-                            <div class="modal-body">
-                                    <form class="col-12" method="POST"  action="{{route('propiedades.insertar')}}"  enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Nombre</label>
-                                            <input type="text" class="form-control" name="name" aria-describedby="emailHelp" placeholder="Ingresar nombre completo" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Direccion</label>
-                                            <input type="text" class="form-control" name="addres" aria-describedby="emailHelp" placeholder="Ingrese direccion" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Precio</label>
-                                            <input type="text" class="form-control" name="price" aria-describedby="emailHelp" placeholder="Ingrese valor de la propiedad" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Codigo Internacional</label>
-                                            <input type="text" class="form-control" name="codeinternacional" aria-describedby="emailHelp" placeholder="Ingrese el codigo internacional" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleInputEmail1">Año</label>
-                                            <input type="date" class="form-control" name="year" aria-describedby="emailHelp"  required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="idOwner">Dueño</label>
-                                            <select class="custom-select" name="idOwner" id="idOwner">
-                                                <option value="" selected disabled>Seleccione una opción...</option>
-                                                @php
-                                                $dueños = App\Models\Dueños::all();
-                                                @endphp   
-                                                @foreach($dueños as $du)
-                                                <option value="{{ $du->idOwner }}">{{ $du->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleInputPassword1">Foto</label>
-                                            <input type="file" class="form-control" name="foto" id="exampleInputPassword1" required>
-                                        </div>
-                            </div>
-                            <div class="modal-footer">
-                                        <button type="submit" class="btn btn-primary">Registrar Propiedad</button>
-                                    </form>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                            </div>
-                        </div>
+       {{--  <!-- Modal -->  --}}
+    <div class="modal fade" id="modalCrearCliente" role="dialog">
+        <div class="modal-dialog">
+                {{--  <!-- Modal content-->  --}}
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Crear Produccion</h4>
+                    </div>
+                    <div class="modal-body">
+                            <form class="col-12" method="POST"  action="{{route('produccion.insertar')}}"  enctype="multipart/form-data">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">ERF</label>
+                                    <input type="text" class="form-control" name="ref" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Operario</label>
+                                    <input type="text" class="form-control" name="operario" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Piezas Buenas</label>
+                                    <input type="number" class="form-control" name="price" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Piezas Malas</label>
+                                    <input type="text" class="form-control" name="piezas_malas" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Fecha Inicio</label>
+                                    <input type="date" class="form-control" name="fecha_inicio" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Fecha Fin</label>
+                                    <input type="date" class="form-control" name="fecha_fin" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Gastos  Adicionales</label>
+                                    <input type="number" class="form-control" name="gastos_adicionales" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Observaciones</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" name="observaciones" rows="3" required></textarea>
+                                </div>
+                    </div>
+                    <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Registrar Produccion</button>
+                            </form>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    </div>
                 </div>
-            </div>
+        </div>
+    </div>
 
 </div>
 @endsection

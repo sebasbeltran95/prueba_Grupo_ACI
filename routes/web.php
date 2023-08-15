@@ -21,15 +21,6 @@ Route::get('/', function () {
     return view('inicio');
 });
 
-// dueños 
-Route::controller(DueñosController::class)->group(function(){
-    Route::get('/usuarios','index')->name('usuarios.ver');
-    Route::post('/usuariosinsertar', 'store')->name('usuarios.insertar');
-    Route::post('/usuariosactualizar', 'update')->name('usuactualizar');
-    Route::delete('/usuariosdestroy/{id_usu}', 'destroy')->name('usuarios.destroy');
-    Route::post('/usuariosfiltro','filtro_name')->name('usufiltroname');
-});
-
 // propiedades
 Route::controller(ProduccionController::class)->group(function(){
     Route::get('/produccion','index')->name('produccion.ver');
