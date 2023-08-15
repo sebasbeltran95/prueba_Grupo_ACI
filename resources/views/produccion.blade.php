@@ -54,18 +54,16 @@
                                         <td class="text-center">{{$usu->id}}</td>
                                         <td class="text-center">{{$usu->ref}}</td>
                                         <td class="text-center">{{$usu->operario}}</td>
-                                        <td class="text-center">$ {{$usu->piezas_buenas}}</td>
+                                        <td class="text-center">{{$usu->piezas_buenas}}</td>
                                         <td class="text-center">{{$usu->piezas_malas}}</td>
                                         <td class="text-center">{{$usu->fecha_inicio}}</td>
                                         <td class="text-center">{{$usu->fecha_fin}}</td>
-                                        <td class="text-center">{{number_format($usu->gastos_adicionales)}}</td>
+                                        <td class="text-center">${{number_format($usu->gastos_adicionales)}}</td>
                                         <td class="text-center">{{$usu->observaciones}}</td>
-                                        <td class="text-center">{{$usu->created_at}}</td>
-                                        <td class="text-center">{{$usu->updated_at}}</td>
                                         <td class="d-flex justify-content-center">
                                             <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                                                <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#myModal1{{$usu->idProperty}}"><i class="fas fa-user-edit"></i></button>
-                                                <form action="{{ route('propiedades.destroy',$usu->idProperty) }}" method="POST">
+                                                <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#myModal1{{$usu->id}}"><i class="fas fa-user-edit"></i></button>
+                                                <form action="{{ route('produccion.destroy',$usu->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i></button>
@@ -77,7 +75,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     {{--  <!-- Modal -->  --}}
-                                                    <div class="modal fade" id="myModal1{{$usu->idProperty}}" role="dialog">
+                                                    <div class="modal fade" id="myModal1{{$usu->id}}" role="dialog">
                                                     <div class="modal-dialog">
                                                         {{--  <!-- Modal content-->  --}}
                                                         <div class="modal-content">
@@ -88,27 +86,39 @@
                                                                 <form class="col-12" method="POST" action="{{route('produccionactualizar')}}">
                                                                     @csrf
                                                                     <div class="form-group">
-                                                                        <input value="{{$usu->idProperty}}" type="hidden" class="form-control" name="idProperty">
+                                                                        <input value="{{$usu->id}}" type="hidden" class="form-control" name="id">
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label for="exampleInputEmail1">Nombre</label>
-                                                                        <input type="text" class="form-control" name="name" value="{{$usu->name}}" aria-describedby="emailHelp" placeholder="Ingresar nombre completo" required>
+                                                                        <label for="exampleInputEmail1">ERF</label>
+                                                                        <input type="number" class="form-control" name="ref" value="{{$usu->ref}}" required>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label for="exampleInputEmail1">Direccion</label>
-                                                                        <input type="text" class="form-control" name="addres" value="{{$usu->addres}}" aria-describedby="emailHelp" placeholder="Ingrese direccion" required>
+                                                                        <label for="exampleInputEmail1">Operario</label>
+                                                                        <input type="text" class="form-control" name="operario" value="{{$usu->operario}}" required>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label for="exampleInputEmail1">Precio</label>
-                                                                        <input type="text" class="form-control" name="price" value="{{$usu->price}}" aria-describedby="emailHelp" placeholder="Ingrese valor de la propiedad" required>
+                                                                        <label for="exampleInputEmail1">Piezas Buenas</label>
+                                                                        <input type="number" class="form-control" name="piezas_buenas" value="{{$usu->piezas_buenas}}" required>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label for="exampleInputEmail1">Codigo Internacional</label>
-                                                                        <input type="text" class="form-control" name="codeinternacional" value="{{$usu->codeinternacional}}" aria-describedby="emailHelp" placeholder="Ingrese el codigo internacional" required>
+                                                                        <label for="exampleInputEmail1">Piezas Malas</label>
+                                                                        <input type="number" class="form-control" name="piezas_malas" value="{{$usu->piezas_malas}}" required>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label for="exampleInputEmail1">Año</label>
-                                                                        <input type="date" class="form-control" name="year"  value="{{$usu->year}}" aria-describedby="emailHelp"  required>
+                                                                        <label for="exampleInputEmail1">Fecha Inicio</label>
+                                                                        <input type="date" class="form-control" name="fecha_inicio" value="{{$usu->fecha_inicio}}" required>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Fecha Fin</label>
+                                                                        <input type="date" class="form-control" name="fecha_fin" value="{{$usu->fecha_fin}}" required>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Gastos  Adicionales</label>
+                                                                        <input type="number" class="form-control" name="gastos_adicionales" value="{{$usu->gastos_adicionales}}" required>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="exampleInputEmail1">Observaciones</label>
+                                                                        <textarea class="form-control" id="exampleFormControlTextarea1" name="observaciones" rows="3" required>{{$usu->observaciones}}</textarea>
                                                                     </div>
                                                         </div>
                                                         <div class="modal-footer">
@@ -157,11 +167,11 @@
                         <h4 class="modal-title">Crear Produccion</h4>
                     </div>
                     <div class="modal-body">
-                            <form class="col-12" method="POST"  action="{{route('produccion.insertar')}}"  enctype="multipart/form-data">
+                            <form class="col-12" method="POST"  action="{{route('produccion.insertar')}}">
                                 @csrf
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">ERF</label>
-                                    <input type="text" class="form-control" name="ref" required>
+                                    <input type="number" class="form-control" name="ref" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Operario</label>
@@ -169,11 +179,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Piezas Buenas</label>
-                                    <input type="number" class="form-control" name="price" required>
+                                    <input type="number" class="form-control" name="piezas_buenas" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Piezas Malas</label>
-                                    <input type="text" class="form-control" name="piezas_malas" required>
+                                    <input type="number" class="form-control" name="piezas_malas" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Fecha Inicio</label>

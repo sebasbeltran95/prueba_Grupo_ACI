@@ -26,7 +26,7 @@ Route::controller(ProduccionController::class)->group(function(){
     Route::get('/produccion','index')->name('produccion.ver');
     Route::post('/produccioninsertar', 'store')->name('produccion.insertar');
     Route::post('/produccionactualizar', 'update')->name('produccionactualizar');
-    Route::delete('/producciondestroy/{idProperty}', 'destroy')->name('produccion.destroy');
+    Route::delete('/producciondestroy/{id}', 'destroy')->name('produccion.destroy');
     Route::post('/produccionfiltro','filtro_name')->name('produccionfiltroname');
 });
 

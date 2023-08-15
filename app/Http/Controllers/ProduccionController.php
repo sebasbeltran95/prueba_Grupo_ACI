@@ -25,9 +25,14 @@ class ProduccionController extends Controller
     public function store(Request $request)
     {
         $usuarios = new  Produccion();
-        $usuarios->name = $request->name;
-        $usuarios->addres = $request->addres;
-        $usuarios->birday = $request->birday;
+        $usuarios->ref = $request->ref;
+        $usuarios->operario = $request->operario;
+        $usuarios->piezas_buenas = $request->piezas_buenas;
+        $usuarios->piezas_malas = $request->piezas_malas;
+        $usuarios->fecha_inicio = $request->fecha_inicio;
+        $usuarios->fecha_fin = $request->fecha_fin;
+        $usuarios->gastos_adicionales = $request->gastos_adicionales;
+        $usuarios->observaciones = $request->observaciones;
 
         $usuarios->save();
         return redirect()->route('produccion.ver');
@@ -35,17 +40,22 @@ class ProduccionController extends Controller
 
     public function update(Request $request){
     
-        $usuarios = Produccion::find($request->idOwner); 
-        $usuarios->name = $request->name;
-        $usuarios->addres = $request->addres;
-        $usuarios->birday = $request->birday;
+        $usuarios = Produccion::find($request->id); 
+        $usuarios->ref = $request->ref;
+        $usuarios->operario = $request->operario;
+        $usuarios->piezas_buenas = $request->piezas_buenas;
+        $usuarios->piezas_malas = $request->piezas_malas;
+        $usuarios->fecha_inicio = $request->fecha_inicio;
+        $usuarios->fecha_fin = $request->fecha_fin;
+        $usuarios->gastos_adicionales = $request->gastos_adicionales;
+        $usuarios->observaciones = $request->observaciones;
 
         $usuarios->save();
         return redirect()->route('produccion.ver');
     }
 
-    public function destroy($idOwner){
-        Produccion::where('idOwner',$idOwner)->first()->delete();
+    public function destroy($id){
+        Produccion::where('id',$id)->first()->delete();
         return redirect()->route('produccion.ver');
     }
 }
